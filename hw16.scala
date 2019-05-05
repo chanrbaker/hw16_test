@@ -22,13 +22,13 @@ object hw16 extends eecs.cs385 {
           val sum1 = one.sum
           val sum2 = two.sum
           if (sum1 > sum2){
-            if (sum1 > choice){
+            if (sum1 > choice || (sum1 == choice && sum2 > ret)){
               choice = sum1
               ret = sum2
             }
           }
           else {
-            if (sum2 > choice){
+            if (sum2 > choice || (sum2 == choice && sum1 > ret)){
               choice = sum2
               ret = sum1
             }
@@ -42,13 +42,13 @@ object hw16 extends eecs.cs385 {
           val sum1 = one.sum
           val sum2 = two.sum
           if (sum1 > sum2){
-            if (sum1 > choice){
+            if (sum1 > choice || (sum1 == choice && sum2 > ret)){
               choice = sum1
               ret = sum2
             }
           }
           else {
-            if (sum2 > choice){
+            if (sum2 > choice || (sum2 == choice && sum1 > ret)){
               choice = sum2
               ret = sum1
             }
