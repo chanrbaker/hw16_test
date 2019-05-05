@@ -85,7 +85,7 @@ object hw16 extends eecs.cs385 {
     }
     ans
   }
-  test("albertsShare", albertsShare _, "loot")
+  ignoretest("albertsShare", albertsShare _, "loot")
 
 
   // *** insert running time here ***
@@ -96,19 +96,29 @@ object hw16 extends eecs.cs385 {
     var s = Set[Int]()
     for (i <- 1 to n){
       if (!taken.contains(i)){
-        s+=i
+        s += i
         if (i == n) groups = s+:groups
       }
       else if (s.nonEmpty){
-        groups = s+:groups
+        groups = s :: groups
         s = Set()
       }
     }
 
-    groups = groups.reverse
+
     var big = Set[Int]()
     for (g <- groups){
-      if (g.size > big.size) big = g
+
+      var gw = (g.size)/2 +1
+      var bw = (big.size)/2 +1
+
+      if (g.max == n) gw = g.size
+      else if (g.min == 1) gw = g.size
+
+      if (big.nonEmpty && big.max == n) bw = big.size
+      else if (big.nonEmpty && big.min == 1) bw = big.size
+
+      if (gw >= bw) big = g
     }
 
     if (big.min == 1 && big.max != 1) big.max-1
