@@ -5,7 +5,7 @@ object hw16 extends eecs.cs385 {
   // REMEMBER THAT ignoretest MUST BE SET ON AT LEAST
   // TWO PROBLEMS WHEN YOU'RE DONE.
 
-  // *** insert running time here ***
+  // *** insert running time here *** O(n^4)
   def albertsShare(loot: List[Int]): Int = {
 
     val n = loot.length
