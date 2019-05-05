@@ -26,11 +26,17 @@ object hw16 extends eecs.cs385 {
               choice = sum1
               ret = sum2
             }
+            else if (sum1 == choice){
+              ret = ret min sum2
+            }
           }
           else {
             if (sum2 > choice || (sum2 == choice && sum1 > ret)){
               choice = sum2
               ret = sum1
+            }
+            else if (sum2 == choice){
+              ret = ret min sum1
             }
           }
         }
@@ -46,11 +52,17 @@ object hw16 extends eecs.cs385 {
               choice = sum1
               ret = sum2
             }
+            else if (sum1 == choice){
+              ret = ret min sum2
+            }
           }
           else {
             if (sum2 > choice || (sum2 == choice && sum1 > ret)){
               choice = sum2
               ret = sum1
+            }
+            else if (sum2 == choice){
+              ret = ret min sum1
             }
           }
         }
