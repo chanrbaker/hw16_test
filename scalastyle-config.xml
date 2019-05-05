@@ -1,0 +1,107 @@
+<scalastyle>
+ <name>Scalastyle standard configuration</name>
+
+ <check level="error" class="org.scalastyle.file.FileTabChecker" enabled="true">
+   <customMessage>Don't use tabs in your code files. They make programs hard
+   to read because they may display as a different width in the viewer used by
+   somebody reading your program than in the editor you are using to write the
+   code. It should be very easy to configure your editor to automatically turn
+   a tab into spaces (typically 2 spaces for Scala). If you CAN'T configure
+   your editor to do this, then you should switch to a better editor!
+   </customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.file.FileLineLengthChecker" enabled="true">
+  <parameters>
+   <parameter name="maxLineLength"><![CDATA[100]]></parameter>
+  </parameters>
+  <customMessage>When a codeline gets too long, you should break it into
+  multiple lines. Why? Because overly long lines are hard to read. Such lines
+  often get cut off when printing your code. Other viewers may force the reader
+  to scroll to see the rest of the line. GitHub is particularly bad this,
+  because it forces the reader to scroll but gives no visual indication that
+  there is any reason to scroll.
+  </customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.file.NewLineAtEofChecker" enabled="true">
+   <customMessage>Make sure that the last line of your file ends with
+   a newline character. Some tools will have problems processing your file
+   if the last line just ends without a newline character.
+   </customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.file.WhitespaceEndOfLineChecker" enabled="true">
+  <customMessage>Avoid whitespace at the end of a line. It can cause needless differences for version control.</customMessage>
+ </check>
+
+ <check level="warning" class="org.scalastyle.scalariform.LowercasePatternMatchChecker" enabled="false">
+   <customMessage>It is pointless to use pattern matching when there is only a single case and the pattern is a single, lowercase name as in '{ case x => ... }'</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.NoWhitespaceBeforeLeftBracketChecker" enabled="false"></check>
+ <check level="warning" class="org.scalastyle.scalariform.NoWhitespaceAfterLeftBracketChecker" enabled="false"></check>
+ <check level="warning" class="org.scalastyle.scalariform.NoWhitespaceBeforeRightBracketChecker" enabled="false"></check>
+ <check level="warning" class="org.scalastyle.scalariform.NullChecker" enabled="true">
+   <customMessage>Scala heavily discourages the use of null. For example, many
+   places where you might use null in a different language, you should use
+   the Option type instead in Scala. If you feel you absolutely MUST use null,
+   talk to your instructor.
+   </customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.ProcedureDeclarationChecker" enabled="true">
+   <customMessage>Missing = in def. If you intended to write a procedure use 'def p(): Unit = { ... }' syntax instead of 'def p() { ... }'</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.RedundantIfChecker" enabled="true">
+   <customMessage>An 'if' where both branches are literally just 'true' or 'false' should be simplified. For example, replace 'if (b) true else false' with just 'b', or 'if (b) false else true' with '!b'.</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.UppercaseLChecker" enabled="true">
+   <customMessage>Use uppercase L for long literals. For example, 100L instead of
+   100l (because the latter is too easy to confuse with "one thousand and one".</customMessage>
+ </check>
+
+ <check level="warning" class="org.scalastyle.scalariform.TokenChecker" enabled="true">
+  <parameters>
+   <parameter name="regex"><![CDATA[^[lO][lO10]*$]]></parameter>
+  </parameters>
+  <customMessage>Don't use names that look like numbers in some fonts, such as 'l' (lowercase ell) or 'O' (uppercase Oh).</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.TokenChecker" enabled="true">
+  <parameters>
+   <parameter name="regex"><![CDATA[^[ai]sInstanceOf$]]></parameter>
+  </parameters>
+  <customMessage>Don't use isInstanceOf or asInstanceOf. Use pattern matching instead.</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.TokenChecker" enabled="true">
+  <parameters>
+   <parameter name="regex"><![CDATA[^:\+$]]></parameter>
+  </parameters>
+  <customMessage>Don't use the :+ operator on Lists or Arrays. It's too inefficient.</customMessage>
+ </check>
+
+ <!-- Enable these checks for functional code -->
+ <check level="warning" class="org.scalastyle.scalariform.ReturnChecker" enabled="false"></check>
+ <check level="warning" class="org.scalastyle.scalariform.VarFieldChecker" enabled="false"></check>
+ <check level="warning" class="org.scalastyle.scalariform.VarLocalChecker" enabled="false"></check>
+ <check level="warning" class="org.scalastyle.scalariform.TokenChecker" enabled="false">
+  <parameters>
+   <parameter name="regex"><![CDATA[^(to)?Array$]]></parameter>
+  </parameters>
+  <customMessage>Don't use Arrays when functional/immutable code is desired.</customMessage>
+ </check>
+
+ <check level="warning" class="org.scalastyle.scalariform.ClassNamesChecker" enabled="true">
+  <parameters>
+   <parameter name="regex"><![CDATA[^[A-Z].*$]]></parameter>
+  </parameters>
+  <customMessage>Class name should start with an uppercase letter</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.MethodNamesChecker" enabled="true">
+  <parameters>
+   <parameter name="regex"><![CDATA[^[a-z].*$]]></parameter>
+  </parameters>
+  <customMessage>Method name should start with a lowercase letter</customMessage>
+ </check>
+ <check level="warning" class="org.scalastyle.scalariform.MethodArgumentNamesChecker" enabled="true">
+  <parameters>
+   <parameter name="regex"><![CDATA[^[a-z].*$]]></parameter>
+  </parameters>
+  <customMessage>Method argument name should start with a lowercase letter</customMessage>
+ </check>
+</scalastyle>

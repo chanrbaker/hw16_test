@@ -1,0 +1,17 @@
+project/project/
+target/
+cache/
+*.tests
+*.soln
+*.save
+*.jar
+*.class
+*.doc
+*.docx
+*.pdf
+
+# ignore detritus left by vim
+*.swn
+*.swo
+*.swp
+*~
