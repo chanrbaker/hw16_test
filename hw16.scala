@@ -22,7 +22,7 @@ object hw16 extends eecs.cs385 {
           val sum1 = one.sum
           val sum2 = two.sum
           if (sum1 > sum2){
-            if (sum1 > choice || (sum1 == choice && sum2 > ret)){
+            if (sum1 > choice){
               choice = sum1
               ret = sum2
             }
@@ -31,7 +31,7 @@ object hw16 extends eecs.cs385 {
             }
           }
           else {
-            if (sum2 > choice || (sum2 == choice && sum1 > ret)){
+            if (sum2 > choice){
               choice = sum2
               ret = sum1
             }
@@ -48,7 +48,7 @@ object hw16 extends eecs.cs385 {
           val sum1 = one.sum
           val sum2 = two.sum
           if (sum1 > sum2){
-            if (sum1 > choice || (sum1 == choice && sum2 > ret)){
+            if (sum1 > choice){
               choice = sum1
               ret = sum2
             }
@@ -57,7 +57,7 @@ object hw16 extends eecs.cs385 {
             }
           }
           else {
-            if (sum2 > choice || (sum2 == choice && sum1 > ret)){
+            if (sum2 > choice){
               choice = sum2
               ret = sum1
             }
@@ -89,11 +89,32 @@ object hw16 extends eecs.cs385 {
 
 
   // *** insert running time here ***
-  // SERIOUS BUG COUNT = 0
+  // SERIOUS BUG COUNT = 3
   def lotteryPick(n: Int, taken: List[Int]): Int = {
-    ???
+    var groups = List[Set[Int]]()
+
+    var s = Set[Int]()
+    for (i <- 1 to n){
+      if (!taken.contains(i)){
+        s+=i
+        if (i == n) groups = s+:groups
+      }
+      else if (s.nonEmpty){
+        groups = s+:groups
+        s = Set()
+      }
+    }
+
+    groups = groups.reverse
+    var big = Set[Int]()
+    for (g <- groups){
+      if (g.size > big.size) big = g
+    }
+
+    if (big.min == 1 && big.max != 1) big.max-1
+    else big.min
   }
-  ignoretest("lotteryPick", lotteryPick _, "n", "taken")
+  test("lotteryPick", lotteryPick _, "n", "taken")
 
 
   // *** insert running time here ***
