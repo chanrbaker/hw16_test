@@ -143,9 +143,52 @@ object hw16 extends eecs.cs385 {
 
   // *** insert running time here ***
   def synchronizationLength(codes: List[String]): Int = {
-    ???
+    var tree = List[List[Int]]()
+
+    def getPos(prefixes:List[String]): Unit = {
+      var treeN = List[Int]()
+      var ztree = List[String]()
+      var otree = List[String]()
+
+      for (i <- prefixes){
+        if (!treeN.contains(i.length)) treeN = i.length::treeN
+        if (i.tail.nonEmpty){
+          if (i.head == '0') ztree = i.tail::ztree
+          else otree = i.tail::otree
+        }
+      }
+      tree = treeN::tree
+
+      if (otree.nonEmpty) getPos(otree)
+      if (ztree.nonEmpty) getPos(ztree)
+    }
+    getPos(codes)
+
+    def checkans(guess:Int,lis: List[Int]): Boolean = {
+      if (guess == 0) return true
+      else if (guess < 0) return false
+      else{
+        var ans = false
+        for (i <- lis){
+          if (checkans(guess-i,tree.head)) ans = true
+        }
+        ans
+      }
+    }
+
+    var help = false
+    var count = 0
+    while (help == false){
+      count +=1
+      help = true
+      for (i <- tree){
+        if (!checkans(count,i)) help = false
+      }
+    }
+    count
+
   }
-  ignoretest("synchronizationLength", synchronizationLength _, "codes")
+  test("synchronizationLength", synchronizationLength _, "codes")
 
   // *** insert running time here ***
   def minCuts(msg: String): Int = {
