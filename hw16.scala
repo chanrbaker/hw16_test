@@ -5,7 +5,7 @@ object hw16 extends eecs.cs385 {
   // REMEMBER THAT ignoretest MUST BE SET ON AT LEAST
   // TWO PROBLEMS WHEN YOU'RE DONE.
 
-  // *** insert running time here *** O(n^4)
+  // *** O(n^4) ***
   def albertsShare(loot: List[Int]): Int = {
 
     val n = loot.length
@@ -88,14 +88,28 @@ object hw16 extends eecs.cs385 {
   ignoretest("albertsShare", albertsShare _, "loot")
 
 
-  // *** insert running time here ***
+  // *** O(nlogn) ***
+  //
+  // The first for loop runs in nlogn
+  //
+  // The second for loop goes through at worst n/2 Sets, where each Set is size 1
+  // because we can choose every other number.  In this case, .size is constant, so
+  // it runs in linear time for n/2, which we can reduce to n.
+  //
+  // If we have one large group, the for loop will run in constant time, and the Set
+  // will have n-1 elements, making .size linear.  It will run in n-1 time, or just n
+  //
+  // If there is one choice taken in the middle, we will have 2 Sets of (n/2)-1
+  // so the for loop will run twice and each .size will run in (n/2)-1, which is also
+  // linear.
   // SERIOUS BUG COUNT = 3
   def lotteryPick(n: Int, taken: List[Int]): Int = {
     var groups = List[Set[Int]]()
+    val take2 = taken.toSet
 
     var s = Set[Int]()
     for (i <- 1 to n){
-      if (!taken.contains(i)){
+      if (!take2.contains(i)){
         s += i
         if (i == n) groups = s+:groups
       }
@@ -129,9 +143,52 @@ object hw16 extends eecs.cs385 {
 
   // *** insert running time here ***
   def synchronizationLength(codes: List[String]): Int = {
-    ???
+    var tree = List[List[Int]]()
+
+    def getPos(prefixes:List[String]): Unit = {
+      var treeN = List[Int]()
+      var ztree = List[String]()
+      var otree = List[String]()
+
+      for (i <- prefixes){
+        if (!treeN.contains(i.length)) treeN = i.length::treeN
+        if (i.tail.nonEmpty){
+          if (i.head == '0') ztree = i.tail::ztree
+          else otree = i.tail::otree
+        }
+      }
+      tree = treeN::tree
+
+      if (otree.nonEmpty) getPos(otree)
+      if (ztree.nonEmpty) getPos(ztree)
+    }
+    getPos(codes)
+
+    def checkans(guess:Int,lis: List[Int]): Boolean = {
+      if (guess == 0) return true
+      else if (guess < 0) return false
+      else{
+        var ans = false
+        for (i <- lis){
+          if (checkans(guess-i,tree.head)) ans = true
+        }
+        ans
+      }
+    }
+
+    var help = false
+    var count = 0
+    while (help == false){
+      count +=1
+      help = true
+      for (i <- tree){
+        if (!checkans(count,i)) help = false
+      }
+    }
+    count
+
   }
-  ignoretest("synchronizationLength", synchronizationLength _, "codes")
+  test("synchronizationLength", synchronizationLength _, "codes")
 
   // *** insert running time here ***
 
