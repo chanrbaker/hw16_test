@@ -124,7 +124,7 @@ object hw16 extends eecs.cs385 {
     if (big.min == 1 && big.max != 1) big.max-1
     else big.min
   }
-  test("lotteryPick", lotteryPick _, "n", "taken")
+  ignoretest("lotteryPick", lotteryPick _, "n", "taken")
 
 
   // *** insert running time here ***
@@ -134,8 +134,27 @@ object hw16 extends eecs.cs385 {
   ignoretest("synchronizationLength", synchronizationLength _, "codes")
 
   // *** insert running time here ***
+
   def minCuts(msg: String): Int = {
-    ???
+    val best = Array.fill(msg.length+1,msg.length+1)(-1)
+    if (msg.length == 0) 0
+    else {
+      for (lo <- msg.length-1 to 0 by -1; hi <- 0 to msg.length-1) {
+        best(lo)(hi) = {
+          if (lo == hi) 1
+          else if (lo > hi) 0
+          else if (msg(lo) == msg(lo+1)) best(lo+1)(hi)
+          else if (msg(hi) == msg(hi-1)) best(lo)(hi-1)
+          else if(msg(lo) == msg(hi)){
+            1 + best(lo+1)(hi-1)
+          }
+          else {
+            1 + (best(lo+1)(hi) min best(lo)(hi-1))
+          }
+        }
+      }
+      best(0)(msg.length-1)
+    }
   }
-  ignoretest("minCuts", minCuts _, "msg")
+  test("minCuts", minCuts _, "msg")
 }
